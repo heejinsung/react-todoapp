@@ -1,21 +1,31 @@
-import './App.css';
+// import './App.css';
+import styled from 'styled-components';
+import TodoTemplate from './components/TodoTemplate';
+import TodoList from './components/TodoList';
+import { useState } from 'react';
 
 function App() {
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      text: '리액트 기초 알아보기',
+      checked: true,
+    },
+    {
+      id: 2,
+      text: '컴포넌트 스타일링 하기',
+      checked: true,
+    },
+    {
+      id: 3,
+      text: '투두리스트 만들기',
+      checked: false,
+    },
+  ]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TodoTemplate>
+      <TodoList todos={todos} />
+    </TodoTemplate>
   );
 }
 
