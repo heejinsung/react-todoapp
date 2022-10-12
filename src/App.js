@@ -66,6 +66,12 @@ function App() {
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
   };
 
+  const onUpdate = (id, text) => {
+    onInsertToggle();
+    setTodos((todos) =>
+      todos.map((todo) => (todo.id === id ? { ...todo, text } : todo))
+    );
+  };
   return (
     <TodoTemplate todoLength={todos.length}>
       <TodoList
@@ -83,6 +89,7 @@ function App() {
           onInsertToggle={onInsertToggle}
           onInsertTodo={onInsertTodo}
           onRemove={onRemove}
+          onUpdate={onUpdate}
         />
       )}
     </TodoTemplate>
