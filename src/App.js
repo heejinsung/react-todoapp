@@ -8,6 +8,7 @@ import { MdAddCircle } from 'react-icons/md';
 
 let nextId = 4;
 function App() {
+  const [selectedTodo, setSelectedTodo] = useState(null);
   const [insertToggle, setInsertToggle] = useState(false);
   const [todos, setTodos] = useState([
     {
@@ -28,6 +29,9 @@ function App() {
   ]);
 
   const onInsertToggle = () => {
+    if (selectedTodo) {
+      setSelectedTodo(null);
+    }
     setInsertToggle((prev) => !prev);
   };
 
@@ -52,16 +56,33 @@ function App() {
       )
     );
   };
+
+  const onChangeSelecetdTodo = (todo) => {
+    setSelectedTodo(todo);
+  };
+
+  const onRemove = (id) => {
+    onInsertToggle();
+    setTodos((todos) => todos.filter((todo) => todo.id !== id));
+  };
+
   return (
     <TodoTemplate todoLength={todos.length}>
-      <TodoList todos={todos} onCheckToggle={onCheckToggle} />
+      <TodoList
+        todos={todos}
+        onCheckToggle={onCheckToggle}
+        onInsertToggle={onInsertToggle}
+        onChangeSelecetdTodo={onChangeSelecetdTodo}
+      />
       <div className="add-todo-button" onClick={onInsertToggle}>
         <MdAddCircle />
       </div>
       {insertToggle && (
         <TodoInsert
+          selectedTodo={selectedTodo}
           onInsertToggle={onInsertToggle}
           onInsertTodo={onInsertTodo}
+          onRemove={onRemove}
         />
       )}
     </TodoTemplate>
